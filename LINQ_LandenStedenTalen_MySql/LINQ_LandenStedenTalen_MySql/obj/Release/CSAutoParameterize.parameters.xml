@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="LandenStedenTalenEntities-Web.config Connection String" description="LandenStedenTalenEntities Connection String used in web.config by the application to access the database." defaultValue="metadata=res://*/LandenStedenTalen.csdl|res://*/LandenStedenTalen.ssdl|res://*/LandenStedenTalen.msl;provider=MySql.Data.MySqlClient;provider connection string=&quot;server=mysql8.mijnhostingpartner.nl;user id=DhaenenAdmin;password=Monding10!;database=dhaenenportfolio&quot;" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\luc\.dhaenen\\Documents\\Visual\ Studio\ 2013\\Projects\\LINQ_LandenStedenTalen_MySql\\LINQ_LandenStedenTalen_MySql\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='LandenStedenTalenEntities']/@connectionString" />
+  </parameter>
+</parameters>

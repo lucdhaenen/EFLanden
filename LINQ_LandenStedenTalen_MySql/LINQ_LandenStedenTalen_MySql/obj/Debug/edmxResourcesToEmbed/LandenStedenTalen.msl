@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="dhaenenportfolioModelStoreContainer" CdmEntityContainer="LandenStedenTalenEntities">
+    <EntitySetMapping Name="lst_landen">
+      <EntityTypeMapping TypeName="dhaenenportfolioModel.lst_Land">
+        <MappingFragment StoreEntitySet="lst_landen">
+          <ScalarProperty Name="LandCode" ColumnName="LandCode" />
+          <ScalarProperty Name="Naam" ColumnName="Naam" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="lst_steden">
+      <EntityTypeMapping TypeName="dhaenenportfolioModel.lst_Stad">
+        <MappingFragment StoreEntitySet="lst_steden">
+          <ScalarProperty Name="StadNr" ColumnName="StadNr" />
+          <ScalarProperty Name="Naam" ColumnName="Naam" />
+          <ScalarProperty Name="LandCode" ColumnName="LandCode" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="lst_talen">
+      <EntityTypeMapping TypeName="dhaenenportfolioModel.lst_Taal">
+        <MappingFragment StoreEntitySet="lst_talen">
+          <ScalarProperty Name="TaalCode" ColumnName="TaalCode" />
+          <ScalarProperty Name="Naam" ColumnName="Naam" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="lst_landentalen" TypeName="dhaenenportfolioModel.lst_landentalen" StoreEntitySet="lst_landentalen">
+      <EndProperty Name="lst_landen">
+        <ScalarProperty Name="LandCode" ColumnName="LandCode" />
+      </EndProperty>
+      <EndProperty Name="lst_talen">
+        <ScalarProperty Name="TaalCode" ColumnName="TaalCode" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,214 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="dhaenenportfolioModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="lst_landen">
+          <Key>
+            <PropertyRef Name="LandCode" />
+          </Key>
+          <Property Name="LandCode" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="Naam" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="lst_landentalen">
+          <Key>
+            <PropertyRef Name="LandCode" />
+            <PropertyRef Name="TaalCode" />
+          </Key>
+          <Property Name="LandCode" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="TaalCode" Type="varchar" MaxLength="3" Nullable="false" />
+        </EntityType>
+        <EntityType Name="lst_steden">
+          <Key>
+            <PropertyRef Name="StadNr" />
+          </Key>
+          <Property Name="StadNr" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Naam" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="LandCode" Type="varchar" MaxLength="3" Nullable="false" />
+        </EntityType>
+        <EntityType Name="lst_talen">
+          <Key>
+            <PropertyRef Name="TaalCode" />
+          </Key>
+          <Property Name="TaalCode" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="Naam" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__LandenTal__LandC__173876EA">
+          <End Role="lst_landen" Type="Self.lst_landen" Multiplicity="1" />
+          <End Role="lst_landentalen" Type="Self.lst_landentalen" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="lst_landen">
+              <PropertyRef Name="LandCode" />
+            </Principal>
+            <Dependent Role="lst_landentalen">
+              <PropertyRef Name="LandCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__LandenTal__TaalC__182C9B23">
+          <End Role="lst_talen" Type="Self.lst_talen" Multiplicity="1" />
+          <End Role="lst_landentalen" Type="Self.lst_landentalen" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="lst_talen">
+              <PropertyRef Name="TaalCode" />
+            </Principal>
+            <Dependent Role="lst_landentalen">
+              <PropertyRef Name="TaalCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Steden__LandCode__1273C1CD">
+          <End Role="lst_landen" Type="Self.lst_landen" Multiplicity="1" />
+          <End Role="lst_steden" Type="Self.lst_steden" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="lst_landen">
+              <PropertyRef Name="LandCode" />
+            </Principal>
+            <Dependent Role="lst_steden">
+              <PropertyRef Name="LandCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="dhaenenportfolioModelStoreContainer">
+          <EntitySet Name="lst_landen" EntityType="Self.lst_landen" Schema="dhaenenportfolio" store:Type="Tables" />
+          <EntitySet Name="lst_landentalen" EntityType="Self.lst_landentalen" Schema="dhaenenportfolio" store:Type="Tables" />
+          <EntitySet Name="lst_steden" EntityType="Self.lst_steden" Schema="dhaenenportfolio" store:Type="Tables" />
+          <EntitySet Name="lst_talen" EntityType="Self.lst_talen" Schema="dhaenenportfolio" store:Type="Tables" />
+          <AssociationSet Name="FK__LandenTal__LandC__173876EA" Association="Self.FK__LandenTal__LandC__173876EA">
+            <End Role="lst_landen" EntitySet="lst_landen" />
+            <End Role="lst_landentalen" EntitySet="lst_landentalen" />
+          </AssociationSet>
+          <AssociationSet Name="FK__LandenTal__TaalC__182C9B23" Association="Self.FK__LandenTal__TaalC__182C9B23">
+            <End Role="lst_talen" EntitySet="lst_talen" />
+            <End Role="lst_landentalen" EntitySet="lst_landentalen" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Steden__LandCode__1273C1CD" Association="Self.FK__Steden__LandCode__1273C1CD">
+            <End Role="lst_landen" EntitySet="lst_landen" />
+            <End Role="lst_steden" EntitySet="lst_steden" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="dhaenenportfolioModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="lst_Land">
+          <Key>
+            <PropertyRef Name="LandCode" />
+          </Key>
+          <Property Name="LandCode" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Naam" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="lst_Steden" Relationship="Self.FK__Steden__LandCode__1273C1CD" FromRole="lst_landen" ToRole="lst_steden" />
+          <NavigationProperty Name="lst_Talen" Relationship="Self.lst_landentalen" FromRole="lst_landen" ToRole="lst_talen" />
+        </EntityType>
+        <EntityType Name="lst_Stad">
+          <Key>
+            <PropertyRef Name="StadNr" />
+          </Key>
+          <Property Name="StadNr" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Naam" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LandCode" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="lst_Land" Relationship="Self.FK__Steden__LandCode__1273C1CD" FromRole="lst_steden" ToRole="lst_landen" />
+        </EntityType>
+        <EntityType Name="lst_Taal">
+          <Key>
+            <PropertyRef Name="TaalCode" />
+          </Key>
+          <Property Name="TaalCode" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Naam" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="lst_Landen" Relationship="Self.lst_landentalen" FromRole="lst_talen" ToRole="lst_landen" />
+        </EntityType>
+        <Association Name="FK__Steden__LandCode__1273C1CD">
+          <End Role="lst_landen" Type="dhaenenportfolioModel.lst_Land" Multiplicity="1" />
+          <End Role="lst_steden" Type="dhaenenportfolioModel.lst_Stad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="lst_landen">
+              <PropertyRef Name="LandCode" />
+            </Principal>
+            <Dependent Role="lst_steden">
+              <PropertyRef Name="LandCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="lst_landentalen">
+          <End Role="lst_landen" Type="dhaenenportfolioModel.lst_Land" Multiplicity="*" />
+          <End Role="lst_talen" Type="dhaenenportfolioModel.lst_Taal" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="LandenStedenTalenEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="lst_landen" EntityType="dhaenenportfolioModel.lst_Land" />
+          <EntitySet Name="lst_steden" EntityType="dhaenenportfolioModel.lst_Stad" />
+          <EntitySet Name="lst_talen" EntityType="dhaenenportfolioModel.lst_Taal" />
+          <AssociationSet Name="FK__Steden__LandCode__1273C1CD" Association="Self.FK__Steden__LandCode__1273C1CD">
+            <End Role="lst_landen" EntitySet="lst_landen" />
+            <End Role="lst_steden" EntitySet="lst_steden" />
+          </AssociationSet>
+          <AssociationSet Name="lst_landentalen" Association="Self.lst_landentalen">
+            <End Role="lst_landen" EntitySet="lst_landen" />
+            <End Role="lst_talen" EntitySet="lst_talen" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="dhaenenportfolioModelStoreContainer" CdmEntityContainer="LandenStedenTalenEntities">
+          <EntitySetMapping Name="lst_landen">
+            <EntityTypeMapping TypeName="dhaenenportfolioModel.lst_Land">
+              <MappingFragment StoreEntitySet="lst_landen">
+                <ScalarProperty Name="LandCode" ColumnName="LandCode" />
+                <ScalarProperty Name="Naam" ColumnName="Naam" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="lst_steden">
+            <EntityTypeMapping TypeName="dhaenenportfolioModel.lst_Stad">
+              <MappingFragment StoreEntitySet="lst_steden">
+                <ScalarProperty Name="StadNr" ColumnName="StadNr" />
+                <ScalarProperty Name="Naam" ColumnName="Naam" />
+                <ScalarProperty Name="LandCode" ColumnName="LandCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="lst_talen">
+            <EntityTypeMapping TypeName="dhaenenportfolioModel.lst_Taal">
+              <MappingFragment StoreEntitySet="lst_talen">
+                <ScalarProperty Name="TaalCode" ColumnName="TaalCode" />
+                <ScalarProperty Name="Naam" ColumnName="Naam" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="lst_landentalen" TypeName="dhaenenportfolioModel.lst_landentalen" StoreEntitySet="lst_landentalen">
+            <EndProperty Name="lst_landen">
+              <ScalarProperty Name="LandCode" ColumnName="LandCode" />
+            </EndProperty>
+            <EndProperty Name="lst_talen">
+              <ScalarProperty Name="TaalCode" ColumnName="TaalCode" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

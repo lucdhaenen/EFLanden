@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="dhaenenportfolioModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="lst_Land">
+    <Key>
+      <PropertyRef Name="LandCode" />
+    </Key>
+    <Property Name="LandCode" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Naam" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="lst_Steden" Relationship="Self.FK__Steden__LandCode__1273C1CD" FromRole="lst_landen" ToRole="lst_steden" />
+    <NavigationProperty Name="lst_Talen" Relationship="Self.lst_landentalen" FromRole="lst_landen" ToRole="lst_talen" />
+  </EntityType>
+  <EntityType Name="lst_Stad">
+    <Key>
+      <PropertyRef Name="StadNr" />
+    </Key>
+    <Property Name="StadNr" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Naam" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="LandCode" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="lst_Land" Relationship="Self.FK__Steden__LandCode__1273C1CD" FromRole="lst_steden" ToRole="lst_landen" />
+  </EntityType>
+  <EntityType Name="lst_Taal">
+    <Key>
+      <PropertyRef Name="TaalCode" />
+    </Key>
+    <Property Name="TaalCode" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Naam" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="lst_Landen" Relationship="Self.lst_landentalen" FromRole="lst_talen" ToRole="lst_landen" />
+  </EntityType>
+  <Association Name="FK__Steden__LandCode__1273C1CD">
+    <End Role="lst_landen" Type="dhaenenportfolioModel.lst_Land" Multiplicity="1" />
+    <End Role="lst_steden" Type="dhaenenportfolioModel.lst_Stad" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="lst_landen">
+        <PropertyRef Name="LandCode" />
+      </Principal>
+      <Dependent Role="lst_steden">
+        <PropertyRef Name="LandCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="lst_landentalen">
+    <End Role="lst_landen" Type="dhaenenportfolioModel.lst_Land" Multiplicity="*" />
+    <End Role="lst_talen" Type="dhaenenportfolioModel.lst_Taal" Multiplicity="*" />
+  </Association>
+  <EntityContainer Name="LandenStedenTalenEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="lst_landen" EntityType="dhaenenportfolioModel.lst_Land" />
+    <EntitySet Name="lst_steden" EntityType="dhaenenportfolioModel.lst_Stad" />
+    <EntitySet Name="lst_talen" EntityType="dhaenenportfolioModel.lst_Taal" />
+    <AssociationSet Name="FK__Steden__LandCode__1273C1CD" Association="Self.FK__Steden__LandCode__1273C1CD">
+      <End Role="lst_landen" EntitySet="lst_landen" />
+      <End Role="lst_steden" EntitySet="lst_steden" />
+    </AssociationSet>
+    <AssociationSet Name="lst_landentalen" Association="Self.lst_landentalen">
+      <End Role="lst_landen" EntitySet="lst_landen" />
+      <End Role="lst_talen" EntitySet="lst_talen" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
